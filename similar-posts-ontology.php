@@ -3,7 +3,7 @@
  * Plugin Name: Similar Posts Ontology
  * Plugin URI: http://www.planetkodiak.com/blog/similar-posts
  * Description: Returns a list of similar posts using ontological philosophies based on your taxonomies (tags, categories, and custom taxonomies). The stronger your taxonomies, the better the results! The widget only works on "single" posts, but you can use the pk_related_return($post->ID); function to grab them programmatically.
- * Version: 1.0.0
+ * Version: 1.0.1
  * Author: Cory Fischer
  * Author URI: http://www.planetkodiak.com
  * Text Domain: similarpostsontology
