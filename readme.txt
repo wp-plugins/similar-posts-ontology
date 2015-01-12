@@ -3,7 +3,7 @@ Contributors: cfischer83
 Tags: similar, related, posts, articles, content, associated, taxonomy, category, tags
 Requires at least: 4.0.0
 Tested up to: 4.1.0
-Stable tag: 1.0
+Stable tag: 1.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -55,6 +55,12 @@ only products get returned, or only blog posts. This would only be an issue if c
 2. Activate the plugin through the 'Plugins' menu in WordPress
 3. Choose either the widget from the left menu under 'Appearances' or use the pk_related_return function in your theme.
 
+== Screenshots ==
+
+1. You can define how your widget looks from the widget admin/edit screen.
+2. You can have it output as a simple list like other, typical side-bar widgets.
+3. Or you can add fields and your own styles to really make it stand out (this example is found at www.bluecrayon.net)
+
 == Frequently Asked Questions ==
 
 = How does this plugin work? =
@@ -82,6 +88,10 @@ categories, and/or custom taxonomies. Also, to properly find your content, tags/
 the *related* content as well. The more you intentionally use your tags and categories, the better your results set will be.
 
 == Changelog ==
+
+= 1.0.1 =
+*Release Date - January 11th, 2015*
+* Made the widget include HTML and classes that are best practice.
 
 = 1.0 =
 *Release Date - January 10th, 2015*

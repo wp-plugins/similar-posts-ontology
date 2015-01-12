@@ -96,10 +96,10 @@ function pk_get_similar_posts($ID, $args) {
  */
 function pk_show_similar_posts($ID, $args) {
 	$results = pk_get_similar_posts($ID, $args);
-	$html = '';
+	$html = '<aside class="widget widget_archive">';
 
 	if (isset($args['title'])) {
-		$html .= '<h3>'.$args['title'].'</h3>';
+		$html .= '<h2 class="widget-title">'.$args['title'].'</h2>';
 	}
 
 	$html .= '<ul class="similar-posts">';
@@ -107,7 +107,7 @@ function pk_show_similar_posts($ID, $args) {
 		// start tag and title
 		$html .= '<li>
 			<div>
-			<h3><a href="'.$v->permalink.'">'.$v->post_title.'</a></h3>
+			<span class="similar-title"><a href="'.$v->permalink.'">'.$v->post_title.'</a></span>
 			';
 		
 		// If time, show time.
@@ -159,7 +159,7 @@ function pk_show_similar_posts($ID, $args) {
 		}
 		$html .= '</div></li>';
 	}
-	$html .= '</ul>';
+	$html .= '</ul></aside>';
 
 	return $html;
 }
