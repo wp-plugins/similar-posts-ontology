@@ -3,7 +3,7 @@ Contributors: cfischer83
 Tags: similar, related, posts, articles, content, associated, taxonomy, category, tags
 Requires at least: 4.0.0
 Tested up to: 4.3.0
-Stable tag: 1.0.1
+Stable tag: 2.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -19,8 +19,10 @@ based on all your taxonomies. There are two ways to show related posts within yo
 called programmatically anywhere you wish!
 
 The Widget included with this plugin gives you the option to limit the amount of posts; it allows you to determine which
-fields to show: Featured Image, Author, Date, and Excerpt (Title is required); and it allows you to determine which 
-variant of the featured image to show: thumbnail, medium, large, or full.
+fields to show: Featured Image, Author, Date, and Excerpt (Title is required);  it allows you to determine which 
+variant of the featured image to show: thumbnail, medium, large, or full. As of version 2.0, you can now decide whether the
+'similar posts' sorting prefers posts that are newer or posts that were created closer to the date of the post you're
+viewing.
 
 If you find the Widget doesn't meet your needs or is too limiting, you can call the functionality programmatically using
 this function:
@@ -33,12 +35,14 @@ The $args parameter is an array with the following values available to you (more
 
 posts_per_page (int defaults to 5)
 thumbnail_size (string consisting of one of these values: "thumbnail", "medium", "large", "full". Defaults to thumbnail).
+sort_prefer	   (string consisting of one of these values: "newest", "closest". Defaults to newest).
 
 An example might be:
 
 $args = array (
 	'posts_per_page' => 6,
-	'thumbnail_size' => 'medium'
+	'thumbnail_size' => 'medium',
+	'sort_prefer' => 'closest'
 );
 
 The return value of pk_related_return is an array of objects that includes most of the fields within WordPress's posts
@@ -53,7 +57,7 @@ only products get returned, or only blog posts. This would only be an issue if c
 
 1. Upload `similar-posts-ontology` to the `/wp-content/plugins/` directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
-3. Choose either the widget from the left menu under 'Appearances' or use the pk_related_return function in your theme.
+3. If you want the widget, go to 'Appearance' -> 'Widgets' and look for Similar Posts Ontology widget. If you prefer to call programmatically, use the pk_related_return function in your theme.
 
 == Screenshots ==
 
@@ -67,7 +71,7 @@ only products get returned, or only blog posts. This would only be an issue if c
 
 There are two aspects to it. First, it finds all similarly tagged, categorized, and otherwise taxonomically created content
 on your site, then sorts it by what has the most similarities. Second, if there is a tie between two posts it will give
-the edge to the newest content.
+the edge to the newest content, or content posted closer to the time your current post was posted, depending how you configure it.
 
 = Why Ontology? What's an Ontology? =
 
@@ -88,6 +92,10 @@ categories, and/or custom taxonomies. Also, to properly find your content, tags/
 the *related* content as well. The more you intentionally use your tags and categories, the better your results set will be.
 
 == Changelog ==
+
+= 2.0 =
+*Release Date - August 15th, 2015*
+* Optimized query to allow for the option of specifying sorting preferences.
 
 = 1.0.1 =
 *Release Date - January 11th, 2015*

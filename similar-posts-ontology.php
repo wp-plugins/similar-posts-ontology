@@ -45,11 +45,19 @@ function pk_get_similar_posts($ID, $args) {
 	$ID = intval($ID);
 	$limit = (isset($args['posts_per_page'])) ? intval($args['posts_per_page']) : 5;
 
+	// determine if sorting is done nearest to ID's date, otherwise default to "newest"
+	$mysql_favor_select = '';
+	$mysql_favor_order_by = '';
+	if (isset($args['sort_prefer']) && $args['sort_prefer'] == 'closest') {
+		$mysql_favor_select = ', ABS((select UNIX_TIMESTAMP('.$table_prefix.'posts.post_date) from '.$table_prefix.'posts WHERE ID = '.$ID.') - UNIX_TIMESTAMP('.$table_prefix.'posts.post_date)) as nearest_posts';
+		$mysql_favor_order_by = ', nearest_posts ASC ';
+	}
+
 	if ($ID == 0) {
 		return null;
 	}
 
-	$sql = "SELECT ".$table_prefix."posts.*, COUNT(`".$table_prefix."posts`.`post_name`) AS `pk_connections` 
+	$sql = "SELECT ".$table_prefix."posts.* ".$mysql_favor_select.", COUNT(`".$table_prefix."posts`.`post_name`) AS `pk_connections` 
 		FROM ".$table_prefix."posts 
 		INNER JOIN `".$table_prefix."term_relationships` AS `pk_term_rel` ON (`pk_term_rel`.`object_id` = `".$table_prefix."posts`.`ID`) 
 		INNER JOIN `".$table_prefix."term_taxonomy` AS `pk_term_tax` ON (`pk_term_tax`.`term_taxonomy_id` = `pk_term_rel`.`term_taxonomy_id`) 
@@ -62,7 +70,7 @@ function pk_get_similar_posts($ID, $args) {
 			) 
 		AND `".$table_prefix."posts`.`ID` != ".$ID." 
 		GROUP BY `".$table_prefix."posts`.`post_name` 
-		ORDER BY `pk_connections` DESC, post_date DESC 
+		ORDER BY `pk_connections` DESC ".$mysql_favor_order_by.", post_date DESC 
 		LIMIT 0, ".$limit;
 	$results = $wpdb->get_results($sql);
 

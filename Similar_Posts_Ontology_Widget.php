@@ -58,6 +58,7 @@ class Similar_Posts_Ontology_Widget extends WP_Widget {
 		$include_fields_author_name	= (! empty( $instance['include_fields_author_name'] ) && $instance['include_fields_author_name'] == 'true')		? ' checked="checked"' : '';
 		$include_fields_excerpt		= (! empty( $instance['include_fields_excerpt'] ) && $instance['include_fields_excerpt'] == 'true') 			? ' checked="checked"' : '';
 		$thumbnail_size				= (! empty( $instance['thumbnail_size'] ) && in_array($instance['thumbnail_size'], array('thumbnail','medium','large','full')))	? $instance['thumbnail_size'] : 'thumbnail';
+		$sort_prefer				= (! empty( $instance['sort_prefer'] ) && $instance['sort_prefer'] == 'closest') 			? 'closest' : 'newer';
 		?>
 		<p>
 		<label for="<?php echo $this->get_field_id('title'); ?>"><?php _e( 'Title:' ); ?></label> 
@@ -73,6 +74,13 @@ class Similar_Posts_Ontology_Widget extends WP_Widget {
 		<label><input id="<?php echo $this->get_field_id('include_fields_post_date'); ?>" name="<?php echo $this->get_field_name( 'include_fields_post_date' ); ?>" type="checkbox" value="true" <?php echo $include_fields_post_date; ?> /> Post Date</label><br />
 		<label><input id="<?php echo $this->get_field_id('include_fields_author_name'); ?>" name="<?php echo $this->get_field_name( 'include_fields_author_name' ); ?>" type="checkbox" value="true" <?php echo $include_fields_author_name; ?> /> Author's Name</label><br />
 		<label><input id="<?php echo $this->get_field_id('include_fields_excerpt'); ?>" name="<?php echo $this->get_field_name( 'include_fields_excerpt' ); ?>" type="checkbox" value="true" <?php echo $include_fields_excerpt; ?> /> Excerpt</label><br />
+		</p>
+		<p>
+		<label for="<?php echo $this->get_field_id('sort_prefer'); ?>"><?php _e( 'Prefer posts that are:' ); ?></label>
+		<select id="<?php echo $this->get_field_id('sort_prefer'); ?>" name="<?php echo $this->get_field_name( 'sort_prefer' ); ?>">
+			<option value="newer" <?php if ($sort_prefer == '' || $sort_prefer == 'newest') { ?>selected="selected"<?php } ?>>Newer</option>
+			<option value="closest" <?php if ($sort_prefer == 'closest') { ?>selected="selected"<?php } ?>>Closer in date</option>
+		</select>
 		</p>
 		<p>
 		<label for="<?php echo $this->get_field_id('thumbnail_size'); ?>"><?php _e( 'Image Size' ); ?></label>
@@ -100,6 +108,7 @@ class Similar_Posts_Ontology_Widget extends WP_Widget {
 		$instance['include_fields_post_date']	= ( $new_instance['include_fields_post_date'] == 'true' ) ? 'true' : 'false';
 		$instance['include_fields_author_name']	= ( $new_instance['include_fields_author_name'] == 'true' ) ? 'true' : 'false';
 		$instance['include_fields_excerpt']		= ( $new_instance['include_fields_excerpt'] == 'true' ) ? 'true' : 'false';
+		$instance['sort_prefer']				= ( $new_instance['sort_prefer'] == 'closest' ) ? 'closest' : 'newest';
 		$instance['thumbnail_size']				= ( in_array($new_instance['thumbnail_size'], array('thumbnail','medium','large','full')) ) ? $new_instance['thumbnail_size'] : 'thumbnail';
 
 		return $instance;
@@ -119,6 +128,7 @@ class Similar_Posts_Ontology_Widget extends WP_Widget {
 			'include_fields_post_date' => 'false',
 			'include_fields_author_name' => 'false',
 			'include_fields_excerpt' => 'false',
+			'sort_prefer' => 'newest',
 			'thumbnail_size' => 'thumbnail'
 		);
 	}
