@@ -27,23 +27,25 @@ viewing.
 If you find the Widget doesn't meet your needs or is too limiting, you can call the functionality programmatically using
 this function:
 
-pk_related_return($post->ID, $args);
+`pk_related_return($post->ID, $args);`
 
 Where $post->ID is the ID of the post for which you are wanting to show related articles.
 
 The $args parameter is an array with the following values available to you (more coming soon):
 
-posts_per_page (int defaults to 5)
-thumbnail_size (string consisting of one of these values: "thumbnail", "medium", "large", "full". Defaults to thumbnail).
-sort_prefer	   (string consisting of one of these values: "newest", "closest". Defaults to newest).
+* posts_per_page (int defaults to 5)
+* thumbnail_size (string consisting of one of these values: "thumbnail", "medium", "large", "full". Defaults to thumbnail).
+* sort_prefer	   (string consisting of one of these values: "newest", "closest". Defaults to newest).
 
 An example might be:
 
+`<?php
 $args = array (
 	'posts_per_page' => 6,
 	'thumbnail_size' => 'medium',
 	'sort_prefer' => 'closest'
 );
+`
 
 The return value of pk_related_return is an array of objects that includes most of the fields within WordPress's posts
 table plus permalink and featured image.
